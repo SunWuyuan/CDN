@@ -1,0 +1,14 @@
+if [ ! -f "cloudreve" ];then
+# 定义版本变量
+tag=$(wget -qO- -t1 -T2 "https://api.github.com/repos/cloudreve/Cloudreve/releases/latest" | jq -r '.tag_name')
+# 下载链接替换为变量
+wget -L https://github.com/cloudreve/Cloudreve/releases/download/${tag}/cloudreve_${tag}_linux_amd64.tar.gz -o cloudreve.tar.gz
+# 解压获取到的主程序
+tar -zxvf cloudreve.tar.gz
+  rm -f cloudreve.tar.gz
+fi
+# 赋予执行权限
+chmod +x ./cloudreve
+
+# 启动 Cloudreve
+./cloudreve
